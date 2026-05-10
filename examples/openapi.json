@@ -1,0 +1,1245 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Dify Excel Tool Server",
+    "description": "A FastAPI-based Python Tool Server for Dify workflows and agents to create, read, update, and delete Excel workbooks.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/excel/workbooks": {
+      "get": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "List Workbooks",
+        "operationId": "list_workbooks_api_v1_excel_workbooks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WorkbookInfo"
+                  },
+                  "type": "array",
+                  "title": "Response List Workbooks Api V1 Excel Workbooks Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Create Workbook",
+        "operationId": "create_workbook_api_v1_excel_workbooks_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkbookCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkbookResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/excel/workbooks/upload": {
+      "post": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Upload Workbook",
+        "operationId": "upload_workbook_api_v1_excel_workbooks_upload_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_workbook_api_v1_excel_workbooks_upload_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkbookResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/excel/workbooks/{workbook_id}/download": {
+      "get": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Download Workbook",
+        "operationId": "download_workbook_api_v1_excel_workbooks__workbook_id__download_get",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/excel/workbooks/{workbook_id}": {
+      "delete": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Delete Workbook",
+        "operationId": "delete_workbook_api_v1_excel_workbooks__workbook_id__delete",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/excel/workbooks/{workbook_id}/sheets": {
+      "get": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "List Sheets",
+        "operationId": "list_sheets_api_v1_excel_workbooks__workbook_id__sheets_get",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Create Sheet",
+        "operationId": "create_sheet_api_v1_excel_workbooks__workbook_id__sheets_post",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SheetCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/excel/workbooks/{workbook_id}/sheets/{sheet_name}": {
+      "patch": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Rename Sheet",
+        "operationId": "rename_sheet_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__patch",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SheetRenameRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Delete Sheet",
+        "operationId": "delete_sheet_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__delete",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/excel/workbooks/{workbook_id}/sheets/{sheet_name}/rows": {
+      "get": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Read Rows",
+        "operationId": "read_rows_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__rows_get",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          },
+          {
+            "name": "start_row",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "title": "Start Row"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RowsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Append Row",
+        "operationId": "append_row_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__rows_post",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RowAppendRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/excel/workbooks/{workbook_id}/sheets/{sheet_name}/rows/{row_index}": {
+      "put": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Update Row",
+        "operationId": "update_row_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__rows__row_index__put",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          },
+          {
+            "name": "row_index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Row Index"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RowUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Delete Row",
+        "operationId": "delete_row_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__rows__row_index__delete",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          },
+          {
+            "name": "row_index",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Row Index"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/excel/workbooks/{workbook_id}/sheets/{sheet_name}/cells/{cell}": {
+      "get": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Read Cell",
+        "operationId": "read_cell_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__cells__cell__get",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          },
+          {
+            "name": "cell",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Cell"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CellResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Update Cell",
+        "operationId": "update_cell_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__cells__cell__put",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          },
+          {
+            "name": "cell",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Cell"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CellUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/excel/workbooks/{workbook_id}/sheets/{sheet_name}/range": {
+      "get": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Read Range",
+        "operationId": "read_range_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__range_get",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          },
+          {
+            "name": "range_ref",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Range Ref"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RangeReadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "excel"
+        ],
+        "summary": "Write Range",
+        "operationId": "write_range_api_v1_excel_workbooks__workbook_id__sheets__sheet_name__range_put",
+        "parameters": [
+          {
+            "name": "workbook_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Workbook Id"
+            }
+          },
+          {
+            "name": "sheet_name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sheet Name"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RangeWriteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health Check",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_upload_workbook_api_v1_excel_workbooks_upload_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_workbook_api_v1_excel_workbooks_upload_post"
+      },
+      "CellResponse": {
+        "properties": {
+          "workbook_id": {
+            "type": "string",
+            "title": "Workbook Id"
+          },
+          "sheet_name": {
+            "type": "string",
+            "title": "Sheet Name"
+          },
+          "cell": {
+            "type": "string",
+            "title": "Cell"
+          },
+          "value": {
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "workbook_id",
+          "sheet_name",
+          "cell",
+          "value"
+        ],
+        "title": "CellResponse"
+      },
+      "CellUpdateRequest": {
+        "properties": {
+          "value": {
+            "title": "Value"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value"
+        ],
+        "title": "CellUpdateRequest"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "RangeReadResponse": {
+        "properties": {
+          "workbook_id": {
+            "type": "string",
+            "title": "Workbook Id"
+          },
+          "sheet_name": {
+            "type": "string",
+            "title": "Sheet Name"
+          },
+          "range": {
+            "type": "string",
+            "title": "Range"
+          },
+          "values": {
+            "items": {
+              "items": {},
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Values"
+          }
+        },
+        "type": "object",
+        "required": [
+          "workbook_id",
+          "sheet_name",
+          "range",
+          "values"
+        ],
+        "title": "RangeReadResponse"
+      },
+      "RangeWriteRequest": {
+        "properties": {
+          "start_cell": {
+            "type": "string",
+            "title": "Start Cell",
+            "examples": [
+              "A1"
+            ]
+          },
+          "values": {
+            "items": {
+              "items": {},
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Values"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start_cell",
+          "values"
+        ],
+        "title": "RangeWriteRequest"
+      },
+      "RowAppendRequest": {
+        "properties": {
+          "values": {
+            "items": {},
+            "type": "array",
+            "title": "Values"
+          }
+        },
+        "type": "object",
+        "required": [
+          "values"
+        ],
+        "title": "RowAppendRequest"
+      },
+      "RowUpdateRequest": {
+        "properties": {
+          "values": {
+            "items": {},
+            "type": "array",
+            "title": "Values"
+          }
+        },
+        "type": "object",
+        "required": [
+          "values"
+        ],
+        "title": "RowUpdateRequest"
+      },
+      "RowsResponse": {
+        "properties": {
+          "workbook_id": {
+            "type": "string",
+            "title": "Workbook Id"
+          },
+          "sheet_name": {
+            "type": "string",
+            "title": "Sheet Name"
+          },
+          "start_row": {
+            "type": "integer",
+            "title": "Start Row"
+          },
+          "rows": {
+            "items": {
+              "items": {},
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Rows"
+          }
+        },
+        "type": "object",
+        "required": [
+          "workbook_id",
+          "sheet_name",
+          "start_row",
+          "rows"
+        ],
+        "title": "RowsResponse"
+      },
+      "SheetCreateRequest": {
+        "properties": {
+          "sheet_name": {
+            "type": "string",
+            "title": "Sheet Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "sheet_name"
+        ],
+        "title": "SheetCreateRequest"
+      },
+      "SheetRenameRequest": {
+        "properties": {
+          "new_sheet_name": {
+            "type": "string",
+            "title": "New Sheet Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "new_sheet_name"
+        ],
+        "title": "SheetRenameRequest"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "WorkbookCreateRequest": {
+        "properties": {
+          "filename": {
+            "type": "string",
+            "title": "Filename",
+            "description": "Workbook filename. .xlsx will be appended if omitted.",
+            "default": "workbook.xlsx"
+          },
+          "sheet_name": {
+            "type": "string",
+            "title": "Sheet Name",
+            "default": "Sheet1"
+          },
+          "headers": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Headers",
+            "description": "Optional header row"
+          },
+          "rows": {
+            "items": {
+              "items": {},
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Rows",
+            "description": "Optional initial rows"
+          }
+        },
+        "type": "object",
+        "title": "WorkbookCreateRequest"
+      },
+      "WorkbookInfo": {
+        "properties": {
+          "workbook_id": {
+            "type": "string",
+            "title": "Workbook Id"
+          },
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "title": "Size Bytes"
+          },
+          "modified_at": {
+            "type": "number",
+            "title": "Modified At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "workbook_id",
+          "filename",
+          "size_bytes",
+          "modified_at"
+        ],
+        "title": "WorkbookInfo"
+      },
+      "WorkbookResponse": {
+        "properties": {
+          "workbook_id": {
+            "type": "string",
+            "title": "Workbook Id"
+          },
+          "filename": {
+            "type": "string",
+            "title": "Filename"
+          },
+          "download_url": {
+            "type": "string",
+            "title": "Download Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "workbook_id",
+          "filename",
+          "download_url"
+        ],
+        "title": "WorkbookResponse"
+      }
+    }
+  }
+}

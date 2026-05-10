@@ -1,0 +1,12 @@
+services:
+  excel-tool-server:
+    build: .
+    container_name: dify-excel-tool-server
+    ports:
+      - "8000:8000"
+    environment:
+      - STORAGE_DIR=/app/storage
+      - MAX_UPLOAD_MB=20
+    volumes:
+      - ./storage:/app/storage
+    restart: unless-stopped

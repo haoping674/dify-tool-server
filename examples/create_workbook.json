@@ -1,0 +1,9 @@
+{
+  "filename": "alarm_report.xlsx",
+  "sheet_name": "Alarms",
+  "headers": ["Date", "Equipment", "System", "Severity", "Count"],
+  "rows": [
+    ["2026-05-01", "CDA-01", "CDA", "High", 3],
+    ["2026-05-02", "Chiller-01", "Chiller", "Medium", 5]
+  ]
+}
